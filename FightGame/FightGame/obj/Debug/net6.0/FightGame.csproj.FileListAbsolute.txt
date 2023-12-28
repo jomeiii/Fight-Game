@@ -1,0 +1,14 @@
+C:\Users\stepa\source\repos\FightGame\FightGame\bin\Debug\net6.0\FightGame.exe
+C:\Users\stepa\source\repos\FightGame\FightGame\bin\Debug\net6.0\FightGame.deps.json
+C:\Users\stepa\source\repos\FightGame\FightGame\bin\Debug\net6.0\FightGame.runtimeconfig.json
+C:\Users\stepa\source\repos\FightGame\FightGame\bin\Debug\net6.0\FightGame.dll
+C:\Users\stepa\source\repos\FightGame\FightGame\bin\Debug\net6.0\FightGame.pdb
+C:\Users\stepa\source\repos\FightGame\FightGame\obj\Debug\net6.0\FightGame.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\stepa\source\repos\FightGame\FightGame\obj\Debug\net6.0\FightGame.AssemblyInfoInputs.cache
+C:\Users\stepa\source\repos\FightGame\FightGame\obj\Debug\net6.0\FightGame.AssemblyInfo.cs
+C:\Users\stepa\source\repos\FightGame\FightGame\obj\Debug\net6.0\FightGame.csproj.CoreCompileInputs.cache
+C:\Users\stepa\source\repos\FightGame\FightGame\obj\Debug\net6.0\FightGame.dll
+C:\Users\stepa\source\repos\FightGame\FightGame\obj\Debug\net6.0\refint\FightGame.dll
+C:\Users\stepa\source\repos\FightGame\FightGame\obj\Debug\net6.0\FightGame.pdb
+C:\Users\stepa\source\repos\FightGame\FightGame\obj\Debug\net6.0\FightGame.genruntimeconfig.cache
+C:\Users\stepa\source\repos\FightGame\FightGame\obj\Debug\net6.0\ref\FightGame.dll

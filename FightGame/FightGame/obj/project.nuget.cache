@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "jUAIeqZLd4HQqujpOz3EtWfIxESmFlf3VS324Y6Sdya5PAhR4hwCv0gVCT9C9ui8dBNlsXA8U25Jm3V24UpbJQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\stepa\\source\\repos\\FightGame\\FightGame\\FightGame.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\stepa\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.25\\microsoft.netcore.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\stepa\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.25\\microsoft.windowsdesktop.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\stepa\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.25\\microsoft.aspnetcore.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\stepa\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.25\\microsoft.netcore.app.host.win-x64.6.0.25.nupkg.sha512"
+  ],
+  "logs": []
+}
