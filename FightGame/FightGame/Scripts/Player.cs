@@ -10,14 +10,17 @@ namespace FightGame.Scripts
 
         private int _lifes;
         private CharacterParams _params;
+
         private int _gold;
-        private List<Item> _inventory = new();
+        private Inventory _inventory;
         private Equipment _equipment;
         private int _originalHealth;
 
 
         public int Lifes => _lifes;
         public CharacterParams Params => _params;
+        public Inventory Inventory => _inventory;
+
         public int Gold
         {
             get { return _gold; }
@@ -26,12 +29,14 @@ namespace FightGame.Scripts
                 _gold = value;
             }
         }
+        public Equipment Equipment => _equipment;
         public int OriginalHealth => _originalHealth;
-        
+
 
         public Player(string name)
         {
             _params = new CharacterParams(name, 200, 50);
+            _inventory = new();
             _lifes = 3;
             _gold = 100;
             _equipment = new Equipment(4, 2, 1);
@@ -67,7 +72,8 @@ namespace FightGame.Scripts
         }
         public void Regeneration()
         {
-            if (_params.Health < MaxHealth){
+            if (_params.Health < MaxHealth)
+            {
                 _params.Health += 5;
                 _originalHealth = _params.Health;
             }

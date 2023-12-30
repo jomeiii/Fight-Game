@@ -1,6 +1,6 @@
 namespace FightGame.Structs
 {
-    public class CharacterParams
+    public struct CharacterParams
     {
         public string Name;
         public int Health;

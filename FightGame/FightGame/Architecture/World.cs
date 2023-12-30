@@ -64,7 +64,6 @@ namespace FightGame
             }
         }
 
-        //TODO: переделавть под NPC
         public IBattler TakeFighter()
         {
             IBattler fighter = _npcs[0];

@@ -1,31 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\stepa\\source\\repos\\FightGame\\FightGame\\FightGame.csproj": {}
+    "C:\\Users\\acer\\Documents\\GitHub\\Fight-Game\\FightGame\\FightGame\\FightGame.csproj": {}
   },
   "projects": {
-    "C:\\Users\\stepa\\source\\repos\\FightGame\\FightGame\\FightGame.csproj": {
+    "C:\\Users\\acer\\Documents\\GitHub\\Fight-Game\\FightGame\\FightGame\\FightGame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\stepa\\source\\repos\\FightGame\\FightGame\\FightGame.csproj",
+        "projectUniqueName": "C:\\Users\\acer\\Documents\\GitHub\\Fight-Game\\FightGame\\FightGame\\FightGame.csproj",
         "projectName": "FightGame",
-        "projectPath": "C:\\Users\\stepa\\source\\repos\\FightGame\\FightGame\\FightGame.csproj",
-        "packagesPath": "C:\\Users\\stepa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\stepa\\source\\repos\\FightGame\\FightGame\\obj\\",
+        "projectPath": "C:\\Users\\acer\\Documents\\GitHub\\Fight-Game\\FightGame\\FightGame\\FightGame.csproj",
+        "packagesPath": "C:\\Users\\acer\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\acer\\Documents\\GitHub\\Fight-Game\\FightGame\\FightGame\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\stepa\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\acer\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

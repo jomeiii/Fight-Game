@@ -18,9 +18,12 @@ namespace FightGame
         }
         private static void Init()
         {
-            System.Console.WriteLine("Game Init");
+            Console.WriteLine("Game Init");
+            Console.WriteLine("");
+            
+            Shop.OpenShop();
         }
-    
+
         public static void GameProcess()
         {
         Batlle:
@@ -34,7 +37,7 @@ namespace FightGame
 
                 Console.WriteLine("Нажмите ENTER для продолжения игры");
                 Console.ReadLine();
-                // Console.Clear();
+                Console.Clear();
                 goto EveryStep;
             }
 
