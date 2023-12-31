@@ -17,24 +17,13 @@ namespace FightGame.Structs
         public int Protection
         {
             get => _protection;
-            set
-            {
-                if (value > _protection)
-                {
-                    _protection = value;
-                }
-            }
+            set => _protection = value;
         }
+
         public int ProtectionQuality
         {
             get => _protectionQuality;
-            set
-            {
-                if (value > _protectionQuality)
-                {
-                    _protectionQuality = value;
-                }
-            }
+            set => _protectionQuality = value;
         }
         public bool OnEquiped => _onEquiped;
         public ItemType Type => _type;

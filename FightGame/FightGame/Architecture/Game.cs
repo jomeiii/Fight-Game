@@ -14,14 +14,24 @@ namespace FightGame
         static Game()
         {
             _player = new Player("Stepa");
+
+            Item item = new("Писька", 1000, 100, 31, ItemType.Accessories, ItemSize.Small);
+            _player.Inventory.PrintInventory();
+            _player.Inventory.AddItemInInventory(item);
+            _player.Inventory.PrintInventory();
+
+            Console.WriteLine(_player.Inventory.Protection);
+            Console.WriteLine(_player.Inventory.ProtectionQuality);
+
             Init();
         }
         private static void Init()
         {
             Console.WriteLine("Game Init");
-            Console.WriteLine("");
-            
-            Shop.OpenShop();
+            Console.WriteLine();
+
+            //Shop.OpenShop();
+
         }
 
         public static void GameProcess()

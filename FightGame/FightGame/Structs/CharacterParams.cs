@@ -5,6 +5,7 @@ namespace FightGame.Structs
         public string Name;
         public int Health;
         public int Damage;
+        
 
         public CharacterParams(string name, int health, int damage)
         {

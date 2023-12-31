@@ -6,8 +6,6 @@ namespace FightGame
     {
         static void Main()
         {
-
-
             //Настройка UI
             Console.BackgroundColor = ConsoleColor.Blue;
             Console.ForegroundColor = ConsoleColor.White;

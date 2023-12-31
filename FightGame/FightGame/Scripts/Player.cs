@@ -14,7 +14,7 @@ namespace FightGame.Scripts
         private int _gold;
         private Inventory _inventory;
         private Equipment _equipment;
-        private int _originalHealth;
+        private int _highestHealth;
 
 
         public int Lifes => _lifes;
@@ -30,7 +30,7 @@ namespace FightGame.Scripts
             }
         }
         public Equipment Equipment => _equipment;
-        public int OriginalHealth => _originalHealth;
+        public int HighestHealth => _highestHealth;
 
 
         public Player(string name)
@@ -41,13 +41,20 @@ namespace FightGame.Scripts
             _gold = 100;
             _equipment = new Equipment(4, 2, 1);
             MaxHealth = 500;
-            _originalHealth = _params.Health;
+            _highestHealth = _params.Health;
         }
 
         public void TakeDmg(int damage)
         {
-            _params.Health -= damage;
-            _originalHealth = _params.Health;
+            //! Применяем защиту и качество защиты к полученному урону
+            int actualDamage = (int)(damage * (1 - _inventory.Protection));
+            int damageTaken = actualDamage - _inventory.ProtectionQuality;
+
+            //! Учитываем защиту и качество защиты при вычитании урона из здоровья
+            if (damageTaken > 0)
+            {
+                _params.Health -= damageTaken;
+            }
         }
 
         public void Respawn()
@@ -57,7 +64,7 @@ namespace FightGame.Scripts
                 if (_lifes > 0)
                 {
                     Console.WriteLine($"У игрока осталось {_lifes} жизней");
-                    _params.Health = _originalHealth;
+                    _params.Health = _highestHealth;
                     _lifes -= 1;
                 }
                 else
@@ -75,7 +82,7 @@ namespace FightGame.Scripts
             if (_params.Health < MaxHealth)
             {
                 _params.Health += 5;
-                _originalHealth = _params.Health;
+                _highestHealth = _params.Health;
             }
         }
     }
