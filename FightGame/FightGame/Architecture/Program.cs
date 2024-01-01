@@ -12,7 +12,7 @@ namespace FightGame
             Console.Clear();
 
             World.SetLevels(GenerateLevels());
-            
+
             Game.GameProcess();
 
 

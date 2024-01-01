@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-
 namespace FightGame.Structs
 {
     public struct Item

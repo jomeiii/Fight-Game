@@ -35,7 +35,7 @@ namespace FightGame.Scripts
 
         public Player(string name)
         {
-            _params = new CharacterParams(name, 200, 50);
+            _params = new CharacterParams(name, 200, 50, 100);
             _inventory = new();
             _lifes = 3;
             _gold = 100;
@@ -47,14 +47,15 @@ namespace FightGame.Scripts
         public void TakeDmg(int damage)
         {
             //! Применяем защиту и качество защиты к полученному урону
-            int actualDamage = (int)(damage * (1 - _inventory.Protection));
-            int damageTaken = actualDamage - _inventory.ProtectionQuality;
+            //int actualDamage = (int)(damage * (1 - _inventory.TotalProtection));
+            //int damageTaken = actualDamage - _inventory.TotalProtectionQuality;
 
             //! Учитываем защиту и качество защиты при вычитании урона из здоровья
-            if (damageTaken > 0)
-            {
-                _params.Health -= damageTaken;
-            }
+            //if (damageTaken > 0)
+            //{
+            //    _params.Health -= damageTaken;
+            //}
+            _params.Health -= damage;
         }
 
         public void Respawn()
@@ -82,8 +83,20 @@ namespace FightGame.Scripts
             if (_params.Health < MaxHealth)
             {
                 _params.Health += 5;
+
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Восстановлено 5 здоровья");
+                Console.WriteLine($"Ваше здоровье {_params.Health}");
+                Console.ForegroundColor = ConsoleColor.White;
+
                 _highestHealth = _params.Health;
             }
+        }
+
+        public void PrintStats()
+        {
+            Console.WriteLine($"Ваши характеристики");
+            Console.WriteLine($"Имя: {_params.Name}, Здоровье: {_params.Health}, Урон: {_params.Damage}, Шанс промаха: {_params.MissChance}%");
         }
     }
 }

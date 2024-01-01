@@ -1,33 +1,28 @@
-using System.Reflection.Metadata.Ecma335;
-
 namespace FightGame.Structs
 {
     public struct Inventory
     {
-        private int _protection;
-        private int _protectionQuality;
+        //private int _totalProtection = 0;
+        //private int _totalProtectionQuality = 0;
         private List<Item> _items;
-        public int Protection => _protection;
-        public int ProtectionQuality => _protectionQuality;
+
+        //public int TotalProtection => _totalProtection;
+        //public int TotalProtectionQuality => _totalProtectionQuality; 
         public List<Item> Items => _items;
 
         #region Costructors
         public Inventory()
         {
             _items = new();
-            _protection = 0;
-            _protectionQuality = 0;
         }
         public Inventory(List<Item> items)
         {
             _items = items;
-            _protection = 0;
-            _protectionQuality = 0;
-            foreach (var item in items)
-            {
-                _protection += item.Protection;
-                _protectionQuality += item.ProtectionQuality;
-            }
+            // foreach (var item in items)
+            // {
+            //     _totalProtection += item.Protection;
+            //     _totalProtectionQuality += item.ProtectionQuality;
+            // }
         }
         #endregion
 
@@ -45,11 +40,8 @@ namespace FightGame.Structs
         {
             _items.Add(item);
 
-            _protection += item.Protection;
-            _protectionQuality += item.ProtectionQuality;
-
-            Console.WriteLine($"Protection: {_protection}");
-            Console.WriteLine($"Protection Quality: {_protectionQuality}");
+            // _totalProtection += item.Protection;
+            // _totalProtectionQuality += item.ProtectionQuality;
         }
         public void AddItemsInInvntory(List<Item> items)
         {

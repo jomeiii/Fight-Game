@@ -1,6 +1,4 @@
-using System.Xml;
 using FightGame.Scripts;
-using FightGame.Scripts.NPCs;
 using FightGame.Structs;
 
 namespace FightGame
@@ -15,13 +13,29 @@ namespace FightGame
         {
             _player = new Player("Stepa");
 
-            Item item = new("Писька", 1000, 100, 31, ItemType.Accessories, ItemSize.Small);
-            _player.Inventory.PrintInventory();
-            _player.Inventory.AddItemInInventory(item);
-            _player.Inventory.PrintInventory();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Персонаж создан!");
+            Console.WriteLine($"Имя: {_player.Params.Name}, Здоровье: {_player.Params.Health}, Урон: {_player.Params.Damage}, Шанс промаха: {_player.Params.MissChance}%");
+            Console.ForegroundColor = ConsoleColor.White;
 
-            Console.WriteLine(_player.Inventory.Protection);
-            Console.WriteLine(_player.Inventory.ProtectionQuality);
+            Console.WriteLine($"Нажмите ENTER чтобы продолжить");
+            Console.ReadLine();
+
+            // Shop.OpenShop();
+
+            /*Item item = new("Новый предмет", 10000, 456, 987, ItemType.Weapon, ItemSize.Large);
+            
+
+            _player.Inventory.PrintInventory();
+            Console.WriteLine();
+
+            _player.Inventory.AddItemInInventory(item);
+
+            _player.Inventory.PrintInventory();
+            Console.WriteLine();*/
+
+            //Console.WriteLine($"Protection { _player.Inventory.TotalProtection}");
+            //.WriteLine($"ProtectionQuality { _player.Inventory.TotalProtectionQuality}");
 
             Init();
         }
@@ -29,36 +43,36 @@ namespace FightGame
         {
             Console.WriteLine("Game Init");
             Console.WriteLine();
-
-            //Shop.OpenShop();
-
         }
 
         public static void GameProcess()
         {
-        Batlle:
-            Battle.BattlePVE(World.CurrentLvl.TakeFighter());
-            if (_player.Params.Health <= 0 && _player.Lifes <= 0)
-                goto GameOver;
-            else
+            while (World.CurrentLvl.Id <= World.Levels.Count - 1)
             {
-                if (_player.Params.Health <= 0)
-                    _player.Respawn();
+            Batlle:
+                Battle.BattlePVE(World.CurrentLvl.TakeFighter());
+                if (_player.Params.Health <= 0 && _player.Lifes <= 0)
+                    goto GameOver;
+                else
+                {
+                    if (_player.Params.Health <= 0)
+                        _player.Respawn();
 
-                Console.WriteLine("Нажмите ENTER для продолжения игры");
+                    Console.WriteLine("Нажмите ENTER для продолжения игры");
+                    Console.ReadLine();
+                    Console.Clear();
+                    goto EveryStep;
+                }
+
+            EveryStep:
+                _player.Gold += 5;
+                _player.Regeneration();
+                goto Batlle;
+
+            GameOver:
+                Console.WriteLine("Game over");
                 Console.ReadLine();
-                Console.Clear();
-                goto EveryStep;
             }
-
-        EveryStep:
-            _player.Gold += 5;
-            _player.Regeneration();
-            goto Batlle;
-
-        GameOver:
-            Console.WriteLine("Game over");
-            Console.ReadLine();
         }
     }
 }

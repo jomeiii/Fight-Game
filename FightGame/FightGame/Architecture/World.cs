@@ -58,9 +58,14 @@ namespace FightGame
         }
         private void NPCGenerator()
         {
+            Random random = new Random();
+
+            int chanceToHit;
             for (int i = 0; i < 3; i++)
             {
-                _npcs.Add(new Enemy($"NPC {i}", 100, 10, new Equipment(2, 1, 1)));
+                chanceToHit = random.Next(0, 100);
+            
+                _npcs.Add(new Enemy($"NPC {i}", 100, 10, chanceToHit, new Equipment(2, 1, 1)));
             }
         }
 

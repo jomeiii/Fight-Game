@@ -7,9 +7,9 @@ namespace FightGame.Scripts.NPCs
     {
         protected CharacterParams _params;
 
-        public NPC(string name, int health, int damage)
+        public NPC(string name, int health, int damage, int missChance)
         {
-            _params = new CharacterParams(name,health,damage);
+            _params = new CharacterParams(name, health, damage, missChance);
         }
 
         public CharacterParams Params => _params;
@@ -22,6 +22,12 @@ namespace FightGame.Scripts.NPCs
         public void TakeDmg(int dmg)
         {
             _params.Health -= dmg;
+        }
+
+        public void PrintStats()
+        {
+            Console.WriteLine($"Характеристики противника");
+            Console.WriteLine($"Имя: {_params.Name}, Здоровье: {_params.Health}, Урон: {_params.Damage}, Шанс промаха: {_params.MissChance}%");
         }
     }
 }

@@ -48,8 +48,8 @@ namespace FightGame.Scripts
                 }
             }
 
-            Console.WriteLine(_player.Inventory.Protection);
-            Console.WriteLine(_player.Inventory.ProtectionQuality);
+            //Console.WriteLine(_player.Inventory.TotalProtection);
+            //WriteLine(_player.Inventory.TotalProtectionQuality);
 
             var selectItem = shopGenerateInventory.Items[result - 1];
 
@@ -78,8 +78,8 @@ namespace FightGame.Scripts
                 Console.WriteLine($"Вам нужно накопить {selectItem.Cost - _player.Gold} золота\n");
             }
 
-            Console.WriteLine(_player.Inventory.Protection);
-            Console.WriteLine(_player.Inventory.ProtectionQuality);
+            //Console.WriteLine(_player.Inventory.TotalProtection);
+            //.WriteLine(_player.Inventory.TotalProtectionQuality);
 
         }
     }

@@ -9,6 +9,7 @@ namespace FightGame.Interfaces
         public string Name => Params.Name;
         public int Health => Params.Health;
         public int Damage => Params.Damage;
+        public float MissChance => Params.MissChance;
 
 
         public void TakeDmg(int dmg);
