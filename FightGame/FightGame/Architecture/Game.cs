@@ -12,19 +12,15 @@ namespace FightGame
         static Game()
         {
             _player = new Player("Stepa");
-
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Персонаж создан!");
-            Console.WriteLine($"Имя: {_player.Params.Name}, Здоровье: {_player.Params.Health}, Урон: {_player.Params.Damage}, Шанс промаха: {_player.Params.MissChance}%");
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"Ваш персонаж создан!");
+            _player.PrintStats();
 
             Console.WriteLine($"Нажмите ENTER чтобы продолжить");
             Console.ReadLine();
 
             // Shop.OpenShop();
 
-            /*Item item = new("Новый предмет", 10000, 456, 987, ItemType.Weapon, ItemSize.Large);
-            
+            Item item = new("Новый предмет", 10000, 456, 987, ItemType.Weapon, ItemSize.Large);
 
             _player.Inventory.PrintInventory();
             Console.WriteLine();
@@ -32,46 +28,84 @@ namespace FightGame
             _player.Inventory.AddItemInInventory(item);
 
             _player.Inventory.PrintInventory();
-            Console.WriteLine();*/
 
-            //Console.WriteLine($"Protection { _player.Inventory.TotalProtection}");
-            //.WriteLine($"ProtectionQuality { _player.Inventory.TotalProtectionQuality}");
+            Console.WriteLine($"Protection { _player.Inventory.TotalProtection}");
+            Console.WriteLine($"ProtectionQuality { _player.Inventory.TotalProtectionQuality}");
 
             Init();
         }
         private static void Init()
         {
             Console.WriteLine("Game Init");
-            Console.WriteLine();
         }
 
         public static void GameProcess()
         {
-            while (World.CurrentLvl.Id <= World.Levels.Count - 1)
+            while (true)
             {
-            Batlle:
+            Battle:
+                // Начало битвы с противником
                 Battle.BattlePVE(World.CurrentLvl.TakeFighter());
+
+                // Проверка состояния игрока после битвы
                 if (_player.Params.Health <= 0 && _player.Lifes <= 0)
                     goto GameOver;
                 else
                 {
                     if (_player.Params.Health <= 0)
+                    {
+                        // Игрок мертв, возрождение и проверка количества жизней
                         _player.Respawn();
-
-                    Console.WriteLine("Нажмите ENTER для продолжения игры");
-                    Console.ReadLine();
-                    Console.Clear();
+                        if (_player.Lifes <= 0)
+                        {
+                            goto GameOver;
+                        }
+                    }
                     goto EveryStep;
                 }
 
             EveryStep:
+                // Ожидание нажатия клавиши для продолжения игры
+                Console.WriteLine("Нажмите ENTER для продолжения игры");
+                Console.ReadLine();
+                Console.Clear();
+
+                // Добавление золота и регенерация здоровья игрока
                 _player.Gold += 5;
                 _player.Regeneration();
-                goto Batlle;
 
+                if (World.CurrentLvl != null)
+                    goto Battle;
+                else
+                {
+                    Console.WriteLine("Вы прошли все уровни");
+                    Console.WriteLine("Создать новые уровни?");
+                    Console.WriteLine("1) Да\n2) Нет");
+                    while (true)
+                    {
+                        string? inputString = Console.ReadLine();
+                        if (inputString == "1")
+                        {
+                            World.SetLevels(Program.GenerateLevels());
+                            goto Battle;
+                        }
+                        else if (inputString == "2")
+                        {
+                            goto GameOver;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Введен некорректный формат числа. Попробуйте еще раз!");
+                        }
+                    }
+                }
             GameOver:
-                Console.WriteLine("Game over");
+                // Конец игры
+                Console.WriteLine("Игра закончена");
+
+
                 Console.ReadLine();
+                break;
             }
         }
     }

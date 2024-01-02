@@ -1,8 +1,9 @@
-﻿//0.51.07 5
+﻿using FightGame.Scripts;
+using FightGame.Structs;
 
 namespace FightGame
 {
-    class Programm
+    public class Program
     {
         static void Main()
         {
@@ -11,16 +12,32 @@ namespace FightGame
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
 
-            World.SetLevels(GenerateLevels());
+            Player player = new Player("Stepa");;
 
-            Game.GameProcess();
+            Item item = new("Новый предмет", 10000, 456, 987, ItemType.Weapon, ItemSize.Large);
 
+            player.Inventory.PrintInventory();
+            Console.WriteLine();
+
+            player.Inventory.AddItemInInventory(item);
+
+            player.Inventory.PrintInventory();
+
+            Console.WriteLine($"Protection { player.Inventory.TotalProtection}");
+            Console.WriteLine($"ProtectionQuality { player.Inventory.TotalProtectionQuality}");
+            Console.ReadLine();
+
+            // World.SetLevels(GenerateLevels());
+
+            // Game.GameProcess();
+
+            // Console.WriteLine($"Game finish");
 
             // World.PrintLevels();
         }
-        private static List<Level> GenerateLevels()
+        public static List<Level> GenerateLevels()
         {
-            int count = 0;
+            int count = 1;
 
             while (count <= 0)
             {

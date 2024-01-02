@@ -2,12 +2,18 @@ namespace FightGame.Structs
 {
     public struct Inventory
     {
-        //private int _totalProtection = 0;
-        //private int _totalProtectionQuality = 0;
+        private int _totalProtection = 0;
+        private int _totalProtectionQuality = 0;
         private List<Item> _items;
 
-        //public int TotalProtection => _totalProtection;
-        //public int TotalProtectionQuality => _totalProtectionQuality; 
+        public int TotalProtection
+        {
+            get => _totalProtection;
+        }
+        public int TotalProtectionQuality
+        {
+            get => _totalProtectionQuality;
+        }
         public List<Item> Items => _items;
 
         #region Costructors
@@ -17,12 +23,14 @@ namespace FightGame.Structs
         }
         public Inventory(List<Item> items)
         {
-            _items = items;
-            // foreach (var item in items)
-            // {
-            //     _totalProtection += item.Protection;
-            //     _totalProtectionQuality += item.ProtectionQuality;
-            // }
+            _items = new();
+            foreach (var item in items)
+            {
+                _items.Add(item);
+
+                _totalProtection += item.Protection;
+                _totalProtectionQuality += item.ProtectionQuality;
+            }
         }
         #endregion
 
@@ -40,12 +48,23 @@ namespace FightGame.Structs
         {
             _items.Add(item);
 
-            // _totalProtection += item.Protection;
-            // _totalProtectionQuality += item.ProtectionQuality;
+            _totalProtection += item.Protection;
+            _totalProtectionQuality += item.ProtectionQuality;
         }
-        public void AddItemsInInvntory(List<Item> items)
+
+        private void UpdateTotalProtection()
         {
-            foreach (var item in items)
+            _totalProtection = _items.Sum(item => item.Protection);
+        }
+
+        private void UpdateTotalProtectionQuality()
+        {
+            _totalProtectionQuality = _items.Sum(item => item.ProtectionQuality);
+        }
+        public void AddItemsInInventory(List<Item> items)
+        {
+            List<Item> itemsCopy = new List<Item>(items); // Создаем копию списка items
+            foreach (Item item in itemsCopy)
             {
                 AddItemInInventory(item);
             }

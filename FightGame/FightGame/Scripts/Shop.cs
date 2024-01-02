@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using FightGame.Structs;
 
 namespace FightGame.Scripts

@@ -26,8 +26,10 @@ namespace FightGame.Scripts.NPCs
 
         public void PrintStats()
         {
-            Console.WriteLine($"Характеристики противника");
-            Console.WriteLine($"Имя: {_params.Name}, Здоровье: {_params.Health}, Урон: {_params.Damage}, Шанс промаха: {_params.MissChance}%");
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine($"\nХарактеристики противника");
+            Console.WriteLine($"Имя: {_params.Name}, Здоровье: {_params.Health}, Урон: {_params.Damage}, Шанс промаха: {_params.MissChance}%\n");
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }

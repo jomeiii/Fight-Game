@@ -1,4 +1,3 @@
-using FightGame.Interfaces;
 
 namespace FightGame.Scripts.NPCs
 {

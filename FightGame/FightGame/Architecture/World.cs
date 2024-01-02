@@ -9,17 +9,25 @@ namespace FightGame
         private static List<Level> _levels = new();
         private static int _currentLvl = 0;
         public static List<Level> Levels => _levels;
-        public static Level CurrentLvl
+        public static Level? CurrentLvl
         {
             get
             {
+                if (!_levels[_currentLvl].IsFinished)
                 {
-                    if (!_levels[_currentLvl].Finished)
+                    return _levels[_currentLvl];
+                }
+                else
+                {
+                    _currentLvl += 1;
+                    if (_currentLvl < _levels.Count)
+                    {
                         return _levels[_currentLvl];
+                    }
                     else
                     {
-                        _currentLvl += 1;
-                        return _levels[_currentLvl];
+                        // Все уровни пройдены
+                        return null;
                     }
                 }
             }
@@ -47,7 +55,7 @@ namespace FightGame
 
         public int Id => _id;
         public string Name => _name;
-        public bool Finished => _npcs.Count <= 0;
+        public bool IsFinished => _npcs.Count <= 0;
 
         public Level(int id, string name)
         {
@@ -63,9 +71,10 @@ namespace FightGame
             int chanceToHit;
             for (int i = 0; i < 3; i++)
             {
-                chanceToHit = random.Next(0, 100);
-            
-                _npcs.Add(new Enemy($"NPC {i}", 100, 10, chanceToHit, new Equipment(2, 1, 1)));
+                chanceToHit = random.Next(0, 20);
+
+                _npcs.Add(new Enemy($"NPC_{i}", random.Next(50, 200), random.Next(10, 50), 
+                chanceToHit, new Equipment(2, 1, 1)));
             }
         }
 

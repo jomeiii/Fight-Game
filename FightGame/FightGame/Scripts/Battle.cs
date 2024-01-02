@@ -6,69 +6,70 @@ namespace FightGame.Scripts
 {
     public static class Battle
     {
-        // Генерация случайного числа
         private static Random random = new Random();
-        private static int chanceToHit; // Шанс попадания от 0 до 100
+        private const int attackDelay = 1500;
+        private const int deathDelay = 2000;
+
+        /// <summary>
+        /// Метод для проведения битвы между игроком и противником
+        /// </summary>
+        /// <param name="enemy">Противник</param>
         public static void BattlePVE(IBattler enemy)
         {
             IBattler player = Game.Player;
-            int playerDmg = player.Damage;
 
-            ((NPC)enemy).PrintStats();
+            // Вывод информации о противнике
+            PrintEnemyStats(enemy);
 
-            while (true)
+            while (player.Health > 0 && enemy.Health > 0)
             {
-                chanceToHit = random.Next(0, 100);
-
-                if (player.Health > 0)
-                {
-                    if (player.Params.MissChance <= chanceToHit)
-                    {
-                        enemy.TakeDmg(playerDmg);
-                        Console.WriteLine($"Игрок нанес {playerDmg} урона и оставил противнику {enemy.Health} здоровья");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Вы промахнулись");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Игрок мертв");
-                    Thread.Sleep(2000);
-                    break;
-                }
-
+                // Выполнение атаки игроком
+                PerformAttack(player, enemy);
+                Console.WriteLine();
 
                 if (enemy.Health > 0)
                 {
-                    Console.WriteLine($"enemy.Params.MissChance {enemy.Params.MissChance}");
-                    
-                    Console.WriteLine($"chanceToHit {chanceToHit}");
-                    
-                    chanceToHit = random.Next(0, 100);
-                    if (enemy.Params.MissChance <= chanceToHit)
-                    {
-                        player.TakeDmg(enemy.Damage);
-                        Console.WriteLine($"Противнику нанес {enemy.Damage} урона и оставил игроку {player.Health} здоровья");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Противник промахнулся");
-                    }
+                    // Выполнение атаки противника
+                    PerformAttack(enemy, player);
+                    Console.WriteLine();
                 }
-                else
-                {
-                    Console.WriteLine("Противник мертв");
-                    Game.Player.Gold += 10;
-                    Thread.Sleep(2000);
-                    break;
-                }
+            }
 
-
-                Thread.Sleep(1500);
-                //Console.Clear();
+            if (player.Health <= 0)
+            {
+                // Если игрок умер
+                Console.WriteLine("Игрок мертв");
+                Thread.Sleep(deathDelay);
+            }
+            else
+            {
+                // Если противник умер
+                Console.WriteLine("Противник мертв");
+                Game.Player.Gold += 10;
+                Thread.Sleep(deathDelay);
             }
         }
+
+        // Метод для выполнения атаки
+        private static void PerformAttack(IBattler attacker, IBattler target)
+        {
+            // Проверка шанса промаха
+            if (attacker.Params.MissChance <= random.Next(0, 100))
+            {
+                int damage = attacker.Damage;
+                target.TakeDmg(damage);
+
+                Console.WriteLine($"{attacker.Name} нанес {damage} урона и оставил {target.Name} {(target.Health > 0 ? target.Health : 0)} здоровья");
+            }
+            else
+            {
+                Console.WriteLine($"{attacker.Name} промахнулся");
+            }
+
+            Thread.Sleep(attackDelay);
+        }
+
+        // Метод для вывода статистики противника
+        private static void PrintEnemyStats(IBattler enemy) => ((NPC)enemy).PrintStats();
     }
 }
