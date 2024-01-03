@@ -1,19 +1,15 @@
-namespace FightGame.Structs
+using FightGame.Structs;
+
+namespace FightGame.Scripts
 {
-    public struct Inventory
+    public class Inventory
     {
         private int _totalProtection = 0;
         private int _totalProtectionQuality = 0;
         private List<Item> _items;
 
-        public int TotalProtection
-        {
-            get => _totalProtection;
-        }
-        public int TotalProtectionQuality
-        {
-            get => _totalProtectionQuality;
-        }
+        public int TotalProtection => _totalProtection;
+        public int TotalProtectionQuality => _totalProtectionQuality;
         public List<Item> Items => _items;
 
         #region Costructors
@@ -52,19 +48,9 @@ namespace FightGame.Structs
             _totalProtectionQuality += item.ProtectionQuality;
         }
 
-        private void UpdateTotalProtection()
-        {
-            _totalProtection = _items.Sum(item => item.Protection);
-        }
-
-        private void UpdateTotalProtectionQuality()
-        {
-            _totalProtectionQuality = _items.Sum(item => item.ProtectionQuality);
-        }
         public void AddItemsInInventory(List<Item> items)
         {
-            List<Item> itemsCopy = new List<Item>(items); // Создаем копию списка items
-            foreach (Item item in itemsCopy)
+            foreach (Item item in items)
             {
                 AddItemInInventory(item);
             }

@@ -35,8 +35,8 @@ namespace FightGame.Scripts
 
         public Player(string name)
         {
-            _params = new CharacterParams(name, 200, 200, 20);
-            _inventory = new(new List<Item>() { new Item("New Item For Test", 500, 12, 34, ItemType.Weapon, ItemSize.Small) });
+            _params = new CharacterParams(name, 200, 35, 20);
+            _inventory = new();
             _lifes = 3;
             _gold = 100;
             _equipment = new Equipment(4, 2, 1);
@@ -46,16 +46,18 @@ namespace FightGame.Scripts
 
         public void TakeDmg(int damage)
         {
-            /*
-            //Применяем защиту и качество защиты к полученному урону
+            //* Применяем защиту и качество защиты к полученному урону
             int actualDamage = (int)(damage * (1 - _inventory.TotalProtection));
             int damageTaken = actualDamage - _inventory.TotalProtectionQuality;
 
-            //Учитываем защиту и качество защиты при вычитании урона из здоровья
+            //* Учитываем защиту и качество защиты при вычитании урона из здоровья
             if (damageTaken > 0)
             {
-               _params.Health -= damageTaken;
-            }*/
+                Console.WriteLine($"Урон, который должен нанести {_params.Damage}");
+                Console.WriteLine($"Урон, который был нанесен {damageTaken}");
+                
+                _params.Health -= damageTaken;
+            }
             _params.Health -= damage;
         }
 

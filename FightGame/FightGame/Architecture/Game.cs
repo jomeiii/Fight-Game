@@ -20,7 +20,7 @@ namespace FightGame
 
             // Shop.OpenShop();
 
-            Item item = new("Новый предмет", 10000, 456, 987, ItemType.Weapon, ItemSize.Large);
+            Item item = new("Новый предмет", 10000, 30, 100, ItemType.Weapon, ItemSize.Large);
 
             _player.Inventory.PrintInventory();
             Console.WriteLine();

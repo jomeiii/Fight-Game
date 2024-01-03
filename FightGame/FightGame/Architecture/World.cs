@@ -73,8 +73,8 @@ namespace FightGame
             {
                 chanceToHit = random.Next(0, 20);
 
-                _npcs.Add(new Enemy($"NPC_{i}", random.Next(50, 200), random.Next(10, 50), 
-                chanceToHit, new Equipment(2, 1, 1)));
+                _npcs.Add(new Enemy($"NPC_{i}", random.Next(50, 200), random.Next(10, 50),
+                chanceToHit, Inventory.GenerateInventory(1), new Equipment(2, 1, 1)));
             }
         }
 

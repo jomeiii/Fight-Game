@@ -6,13 +6,15 @@ namespace FightGame.Scripts.NPCs
     public abstract class NPC : IBattler
     {
         protected CharacterParams _params;
+        protected Inventory _inventory; 
+        public CharacterParams Params => _params;
+        public Inventory inventory => _inventory;
 
-        public NPC(string name, int health, int damage, int missChance)
+        public NPC(string name, int health, int damage, int missChance, Inventory inventory)
         {
             _params = new CharacterParams(name, health, damage, missChance);
+            _inventory = inventory;
         }
-
-        public CharacterParams Params => _params;
 
         public virtual void Speak()
         {

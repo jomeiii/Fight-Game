@@ -12,26 +12,13 @@ namespace FightGame
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
 
-            Player player = new Player("Stepa");;
+            
 
-            Item item = new("Новый предмет", 10000, 456, 987, ItemType.Weapon, ItemSize.Large);
+            World.SetLevels(GenerateLevels());
 
-            player.Inventory.PrintInventory();
-            Console.WriteLine();
+            Game.GameProcess();
 
-            player.Inventory.AddItemInInventory(item);
-
-            player.Inventory.PrintInventory();
-
-            Console.WriteLine($"Protection { player.Inventory.TotalProtection}");
-            Console.WriteLine($"ProtectionQuality { player.Inventory.TotalProtectionQuality}");
-            Console.ReadLine();
-
-            // World.SetLevels(GenerateLevels());
-
-            // Game.GameProcess();
-
-            // Console.WriteLine($"Game finish");
+            Console.WriteLine($"Game finish");
 
             // World.PrintLevels();
         }
