@@ -12,8 +12,6 @@ namespace FightGame
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
 
-            
-
             World.SetLevels(GenerateLevels());
 
             Game.GameProcess();
@@ -44,5 +42,6 @@ namespace FightGame
             }
             return levels;
         }
+        
     }
 }
