@@ -6,26 +6,34 @@ namespace FightGame.Scripts
     {
         private static Player _player = Game.Player;
 
-        private static List<Item> _shopItems = new();
-
-        public static void OpenShop()
+        public static void Open()
         {
             Console.Clear();
 
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("Магазин");
             Console.ForegroundColor = ConsoleColor.White;
 
-            var shopGenerateInventory = Inventory.GenerateInventory(3);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"Ваше золото {_player.Gold}\n");
+            Console.ForegroundColor = ConsoleColor.White;
+
+            var shopGenerateInventory = Inventory.GenerateInventory(3, PlayerType.Other);
 
             Console.WriteLine("Выберите предмет");
-            Inventory.PrintInventory(shopGenerateInventory);
-            Console.WriteLine("Введите имя предмета");
+            shopGenerateInventory.Print();
+            Console.WriteLine("Введите имя предмета или Z для выхода");
 
+            bool isSelectItem = false;
             var result = 0;
-            while (true)
+            while (!isSelectItem)
             {
-                if (!int.TryParse(Console.ReadLine(), out result) || result < 0)
+                string? input = Console.ReadLine();
+
+                if (!string.IsNullOrEmpty(input) && input.ToLower() == "z")
+                    break;
+
+                if (!int.TryParse(input, out result) || result < 0)
                 {
                     Console.WriteLine("Введен некорректный формат числа. Попробуйте еще раз!");
                     continue;
@@ -43,43 +51,43 @@ namespace FightGame.Scripts
                 }
                 else
                 {
-                    break;
+                    isSelectItem = true;
                 }
             }
+            if (isSelectItem)
+            {
+                var selectItem = shopGenerateInventory.Items[result - 1];
 
-            //Console.WriteLine(_player.Inventory.TotalProtection);
-            //WriteLine(_player.Inventory.TotalProtectionQuality);
+                BuyItem(selectItem);
+            }
 
-            var selectItem = shopGenerateInventory.Items[result - 1];
-
-            Console.WriteLine(selectItem.Protection);
-            Console.WriteLine(selectItem.ProtectionQuality);
-
-            
-
+        }
+        private static void BuyItem(Item selectItem)
+        {
             if (_player.Gold >= selectItem.Cost)
             {
-                _player.Gold -= selectItem.Cost;
-                _player.Inventory.AddItemInInventory(selectItem);
-                Console.WriteLine($"У вас осталось золота {_player.Gold}\n");
-                //Thread.Sleep(1000);
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Ваш инвентарь");
-                Console.ForegroundColor = ConsoleColor.White;
-                _player.Inventory.PrintInventory();
+                if (_player.Inventory.AddItemInInventory(selectItem))
+                {
+                    _player.Gold -= selectItem.Cost;
+                    Console.WriteLine($"У вас осталось золота: {_player.Gold}\n");
+                    Thread.Sleep(1000);
+                    _player.Inventory.Print();
+                }
+                else
+                {
+                    ErrorBuy();
+                }
             }
             else
             {
                 Console.WriteLine($"У вас нехватает денег");
-                //Thread.Sleep(1000);
+                Thread.Sleep(1000);
                 Console.WriteLine($"У вас {_player.Gold}, а предмет стоит {selectItem.Cost}");
-                //Thread.Sleep(1000);
+                Thread.Sleep(1000);
                 Console.WriteLine($"Вам нужно накопить {selectItem.Cost - _player.Gold} золота\n");
             }
-
-            //Console.WriteLine(_player.Inventory.TotalProtection);
-            //.WriteLine(_player.Inventory.TotalProtectionQuality);
-
         }
+
+        private static void ErrorBuy() => Console.WriteLine("Этот предмет нельзя купить для вашего типа персонажа");
     }
 }

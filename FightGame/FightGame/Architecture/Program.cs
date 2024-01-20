@@ -1,12 +1,13 @@
-﻿using FightGame.Scripts;
-using FightGame.Structs;
+using FightGame.Scripts;
 
 namespace FightGame
 {
-    public class Program
+    class Program
     {
         static void Main()
         {
+            //PlayerMovement.Movement();
+
             //Настройка UI
             Console.BackgroundColor = ConsoleColor.Blue;
             Console.ForegroundColor = ConsoleColor.White;
@@ -16,17 +17,16 @@ namespace FightGame
 
             Game.GameProcess();
 
-            Console.WriteLine($"Game finish");
-
             // World.PrintLevels();
         }
+
         public static List<Level> GenerateLevels()
         {
-            int count = 1;
+            int count = 0;
 
             while (count <= 0)
             {
-                Console.WriteLine("Минимально значение уровней должно быить не меньше нуля\n" +
+                Console.WriteLine("Минимально значение уровней должно бить не меньше нуля\n" +
                 "Введите новое значение");
                 bool parse = int.TryParse(Console.ReadLine(), out count);
                 if (parse && count > 0)
@@ -42,6 +42,5 @@ namespace FightGame
             }
             return levels;
         }
-        
     }
 }

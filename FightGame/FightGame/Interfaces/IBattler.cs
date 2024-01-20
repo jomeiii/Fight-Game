@@ -6,11 +6,12 @@ namespace FightGame.Interfaces
     {
         public CharacterParams Params { get; }
 
-        public string Name => Params.Name;
+        public string Name { get; }
         public int Health => Params.Health;
         public int Damage => Params.Damage;
+        public int Protection { get; }
+        public int ProtectionQuality { get; } 
         public float MissChance => Params.MissChance;
-
 
         public void TakeDmg(int dmg);
     }

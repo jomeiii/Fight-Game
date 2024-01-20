@@ -13,28 +13,28 @@ namespace FightGame
         {
             get
             {
-                if (!_levels[_currentLvl].IsFinished)
+                if (_currentLvl < _levels.Count)
                 {
-                    return _levels[_currentLvl];
-                }
-                else
-                {
-                    _currentLvl += 1;
-                    if (_currentLvl < _levels.Count)
+                    if (!_levels[_currentLvl].IsFinished)
                     {
                         return _levels[_currentLvl];
                     }
                     else
                     {
-                        // Все уровни пройдены
-                        return null;
+                        _currentLvl += 1;
+                        if (_currentLvl < _levels.Count)
+                        {
+                            return _levels[_currentLvl];
+                        }
                     }
                 }
+                return null;
             }
         }
 
         public static void SetLevels(List<Level> levels)
         {
+            _currentLvl = 0;
             _levels = levels;
         }
         public static void PrintLevels()
@@ -42,7 +42,7 @@ namespace FightGame
             foreach (var i in _levels)
             {
                 Console.WriteLine("ID " + i.Id);
-                Console.WriteLine("Name " + i.Name);
+                Console.WriteLine("_name " + i.Name);
             }
         }
     }
@@ -68,17 +68,17 @@ namespace FightGame
         {
             Random random = new Random();
 
-            int chanceToHit;
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 1; i++)
             {
-                chanceToHit = random.Next(0, 20);
+                _npcs.Add(new Enemy($"NPC_{i}", random.Next(0, 50), random.Next(10, 50),
+                 random.Next(0, 20), Inventory.GenerateInventory(1, PlayerType.Magician), new Equipment(2, 1, 1)));
 
-                _npcs.Add(new Enemy($"NPC_{i}", random.Next(50, 200), random.Next(10, 50),
-                chanceToHit, Inventory.GenerateInventory(1), new Equipment(2, 1, 1)));
+                //Inventory.GenerateInventory(1)
             }
         }
 
         public IBattler TakeFighter()
+
         {
             IBattler fighter = _npcs[0];
             _npcs.RemoveAt(0);

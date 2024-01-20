@@ -1,3 +1,5 @@
+using FightGame.Scripts;
+
 namespace FightGame.Structs
 {
     public struct Item
@@ -6,9 +8,9 @@ namespace FightGame.Structs
         private int _cost;
         private int _protection;
         private int _protectionQuality;
-        private bool _onEquiped = false;
         private ItemType _type;
         private ItemSize _size;
+        private PlayerType _playerType;
 
         public string Name => _name;
         public int Cost => _cost;
@@ -23,9 +25,10 @@ namespace FightGame.Structs
             get => _protectionQuality;
             set => _protectionQuality = value;
         }
-        public bool OnEquiped => _onEquiped;
         public ItemType Type => _type;
         public ItemSize Size => _size;
+        public PlayerType PlayerType => _playerType;
+
 
         public Item(string name, int cost, int protection, int protectionQuality, ItemType type, ItemSize size)
         {
@@ -34,68 +37,43 @@ namespace FightGame.Structs
             _protection = protection;
             _protectionQuality = protectionQuality;
             _type = type;
-            _size = size;
+            _size = size;   
+           
+            switch (_type)
+            {
+                case ItemType.Shield:
+                    _playerType = PlayerType.Warrior; 
+                    break;
+                case ItemType.Weapon:
+                    _playerType = PlayerType.Shooter; 
+                    break;
+                case ItemType.Accessories:
+                    _playerType = PlayerType.Magician;
+                    break;
+                default:
+                    _playerType = PlayerType.Other;
+                    break;
+            }
         }
 
-        public static Item GenerateItem(string name, int cost, int protection, int protectionQuality, int spread)
+        public static Item GenerateItem(string name, int maxCost, int maxProtection, int maxProtectionQuality)
         {
-            Random rand = new();
-            //* Генерация числа 
-            int GenerateNumber(int number)
-            {
-                if (spread == 0 && spread < 0)
-                    return number;
+            Random random = new();
 
-                int minNum = cost - (int)(cost * 0.2);
-                int maxNum = cost + (int)(cost * 0.2);
-                return rand.Next(minNum, maxNum);
-            }
-
-            //* Генерация случайного типа
-            ItemType GenerateItemType()
-            {
-                switch (rand.Next(Enum.GetNames(typeof(ItemType)).Length))
-                {
-                    case 0:
-                        return ItemType.Weapon;
-                    case 1:
-                        return ItemType.Shield;
-                    case 2:
-                        return ItemType.Accessories;
-                    default:
-                        return ItemType.Weapon;
-                }
-            }
-
-            //* Генерация случайного размера
-            ItemSize GenerateItemSize()
-            {
-                switch (rand.Next(Enum.GetNames(typeof(ItemSize)).Length))
-                {
-                    case 0:
-                        return ItemSize.Small;
-                    case 1:
-                        return ItemSize.Medium;
-                    case 2:
-                        return ItemSize.Large;
-                    default:
-                        return ItemSize.Small;
-                }
-            }
-
-            return new Item(name, GenerateNumber(cost), GenerateNumber(protection),
-            GenerateNumber(protectionQuality), GenerateItemType(), GenerateItemSize());
+            return new Item(name,                                                    //Имя
+                random.Next(50, maxCost),                                            //Цена
+                random.Next(5, maxProtection),                                       //Защита
+                random.Next(10, maxProtectionQuality),                               //Качество защиты
+                (ItemType)random.Next(0, Enum.GetNames(typeof(ItemSize)).Length),    //Тип
+                (ItemSize)random.Next(0, Enum.GetNames(typeof(ItemSize)).Length)     //Размер
+                );
         }
 
         public void PrintItemInfo()
         {
-            Console.WriteLine("Name " + _name);
-            Console.WriteLine("Cost " + _cost);
-            Console.WriteLine("Protection " + _protection);
-            Console.WriteLine("Protection Quality " + _protectionQuality);
-            Console.WriteLine("Size " + _size);
-            Console.WriteLine("Type " + _type);
-            Console.WriteLine();
+            Console.WriteLine($"Имя {_name} | Стоимость {_cost} | " +
+                $"Защита {_protection} | Качество защиты {_protectionQuality} | " +
+                $"Размер {_size} | Тип {_type}\n");
         }
     }
 

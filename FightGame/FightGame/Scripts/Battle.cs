@@ -1,6 +1,7 @@
 using System.Runtime.CompilerServices;
 using FightGame.Interfaces;
 using FightGame.Scripts.NPCs;
+using FightGame.Structs;
 
 namespace FightGame.Scripts
 {
@@ -59,7 +60,9 @@ namespace FightGame.Scripts
                 int damage = attacker.Damage;
                 target.TakeDmg(damage);
 
-                Console.WriteLine($"{attacker.Name} нанес {damage} урона и оставил {target.Name} {(target.Health > 0 ? target.Health : 0)} здоровья");
+                Console.WriteLine($"{attacker.Name} нанес {damage} урона " +
+                    $"и оставил {target.Name} {(target.Health > 0 ? target.Health : 0)} здоровья, " +
+                    $"Защиты {(target.Protection > 0 ? target.Protection : 0)}");
             }
             else
             {

@@ -8,6 +8,8 @@ namespace FightGame.Scripts
         public const int MinHealth = 1;
         public readonly int MaxHealth;
 
+        private string _name;
+        private PlayerType _type;
         private int _lifes;
         private CharacterParams _params;
 
@@ -16,11 +18,16 @@ namespace FightGame.Scripts
         private Equipment _equipment;
         private int _highestHealth;
 
+        public int PosX;
+        public int PosY;
+        public int LastPosX;
+        public int LastPosY;
 
+        public string Name => _name;
+        public PlayerType Type => _type;
         public int Lifes => _lifes;
         public CharacterParams Params => _params;
         public Inventory Inventory => _inventory;
-
         public int Gold
         {
             get { return _gold; }
@@ -31,33 +38,54 @@ namespace FightGame.Scripts
         }
         public Equipment Equipment => _equipment;
         public int HighestHealth => _highestHealth;
+        public int Protection => _inventory.TotalProtection;
+        public int ProtectionQuality => _inventory.TotalProtectionQuality;
 
-
-        public Player(string name)
+        public Player(string name, PlayerType playerType)
         {
-            _params = new CharacterParams(name, 200, 35, 20);
-            _inventory = new();
+            _name = name;
+            _type = playerType;
+
+            switch (_type)
+            {
+                // Воин
+                case PlayerType.Warrior:
+                    _params = new CharacterParams(300, 50, 15);
+                    break;
+                // Стрелок
+                case PlayerType.Shooter:
+                    _params = new CharacterParams(150, 100, 10);
+                    break;
+                // Маг
+                case PlayerType.Magician:
+                    _params = new CharacterParams(100, 150, 25);
+                    break;
+                // Не обработан
+                default:
+                    Console.WriteLine("Тип персонажа не обработан!");
+                    _params = new CharacterParams(200, 50, 20);
+                    break;
+            }
+
+            _inventory = new(_type);
             _lifes = 3;
-            _gold = 100;
+            _gold = 500;
             _equipment = new Equipment(4, 2, 1);
+
             MaxHealth = 500;
             _highestHealth = _params.Health;
         }
 
         public void TakeDmg(int damage)
         {
-            //* Применяем защиту и качество защиты к полученному урону
-            int actualDamage = (int)(damage * (1 - _inventory.TotalProtection));
-            int damageTaken = actualDamage - _inventory.TotalProtectionQuality;
-
-            //* Учитываем защиту и качество защиты при вычитании урона из здоровья
-            if (damageTaken > 0)
+            if (_inventory.TotalProtection > 0)
             {
-                Console.WriteLine($"Урон, который должен нанести {_params.Damage}");
-                Console.WriteLine($"Урон, который был нанесен {damageTaken}");
-                
-                _params.Health -= damageTaken;
+                _inventory.TotalProtection -= damage * _inventory.TotalProtectionQuality / 100;
+                damage -= damage * _inventory.TotalProtectionQuality / 100;
+                if (_inventory.TotalProtectionQuality < 0)
+                    damage += _inventory.TotalProtectionQuality * -1;
             }
+
             _params.Health -= damage;
         }
 
@@ -81,11 +109,12 @@ namespace FightGame.Scripts
                 Console.WriteLine("Игрок еще жив");
             }
         }
+
         public void Regeneration()
         {
             if (_params.Health < MaxHealth)
             {
-                _params.Health += 5;
+                _params.Health += 50;
 
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Восстановлено 5 здоровья");
@@ -98,10 +127,49 @@ namespace FightGame.Scripts
 
         public void PrintStats()
         {
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"Ваши характеристики");
-            Console.WriteLine($"Имя: {_params.Name}, Здоровье: {_params.Health}, Урон: {_params.Damage}, Шанс промаха: {_params.MissChance}%");
+            Console.WriteLine($"Имя: {Name}, Здоровье: {_params.Health}, Урон: {_params.Damage}, " +
+                $"Защита {_inventory.TotalProtection}, Качество защиты {_inventory.TotalProtectionQuality}, " +
+                $"Шанс промаха: {_params.MissChance}%, Тип: {_type}\n");
+
             Console.ForegroundColor = ConsoleColor.White;
         }
+
+        public static Player Create()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("Создание персонажа\n");
+            Console.ForegroundColor = ConsoleColor.White;
+
+            string? name;
+            do
+            {
+                Console.WriteLine("Введите имя:");
+                name = Console.ReadLine();
+
+            } while (string.IsNullOrEmpty(name));
+
+            PlayerType playerType;
+            int playerTypeId;
+            Console.WriteLine("\nВыберите тип персонажа:\n1 - Воин\n2 - Стрелок\n3 - Маг");
+            while (!int.TryParse(Console.ReadLine(), out playerTypeId) || playerTypeId < 1 || playerTypeId > 3)
+            {
+                Console.WriteLine("Такого типа персонажа нет! Попробуйте еще раз.");
+            }
+            playerTypeId -= 1;
+            playerType = (PlayerType)playerTypeId;
+
+            return new Player(name, playerType);
+        }
+    }
+
+    public enum PlayerType
+    {
+        Warrior,
+        Shooter,
+        Magician,
+        Other
     }
 }
